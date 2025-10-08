@@ -1,0 +1,18 @@
+:root{
+    --bg-side-bar: #1c2536;
+    --color-side-bar: #939eb1;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.sidebar {  
+  width: 200px;
+  height: calc(100vh - 20px); 
+  background: var(--bg-side-bar);
+  color: var(--color-side-bar);
+  position: fixed;
+  margin: 10px;
+  border-radius: 15px;
+}
