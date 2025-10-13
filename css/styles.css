@@ -1,48 +1,293 @@
 :root{
-    --bg-side-bar: #1c2536;
-    --color-side-bar: #939eb1;
-    --font-family: 'Roboto', sans-serif;
+    --bg-side-bar: #0f1626;
+    --bg-hover: #1b2540;
+    --bg-checked: #24335c;
+    --color-side-bar: #9aa6c2;
+    --font-family: 'Poppins', sans-serif;
+    --font-color: #f2f3f5;
+    --accent: #3b82f6;
+    --radius: 8px;
+    --transition: 0.3s ease;
 }
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: var(--font-family);
+    color: var(--font-color);
 }
-.sidebar {  
-  width: 200px;
-  height: calc(100vh - 20px); 
+
+body{
+    background: var(--font-color);
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+/*Container*/
+.container{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100vh;
+}
+/* Sidebar */
+.container > .sidebar {  
+  position: fixed;
+  width: 240px; 
+  height: calc(100vh - 40px); 
   background: var(--bg-side-bar);
   color: var(--color-side-bar);
   position: fixed;
-  margin: 10px;
-  border-radius: 12px;
-  justify-content: center;
+  top: 20px;
+  left: 20px;
+  margin: 0;
+  border-radius: var(--radius);
   display: flex;
-}
-.sidebar > .topSidebar{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  width: 100%;
-  height: 60px;
-  margin-top: 10px;    
-  color: #E5E7EB;
-  
 }
 
-.sidebar > .topSidebar > .userClient{
+/* Top sidebar */
+.container > .sidebar > .topSidebar{
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  width: 70%;
-  height: 60px; 
-  color: #e2e2e2;
+  width: 85%;
+  height: 70px;
+  margin-top: 10px;    
+}
+
+.container > .sidebar > .topSidebar > .userClient{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.container > .sidebar > .topSidebar > .userClient > .userSidebar{
+  font-size: 30px;
+  color: #fff;
+  padding: 8px;
+}
+
+.container > .sidebar > .topSidebar > .userClient > .account > .nameClient{
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.container > .sidebar > .topSidebar > .userClient > .account > .tipeAccount{
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--color-side-bar);
+}
+
+/* Main sidebar */
+.container > .sidebar > .mainSidebar{  
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin-top: 25px;
+}
+
+.container > .sidebar > .mainSidebar > .link{
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+  height: 45px;
+  padding-left: 15px;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.container > .sidebar > .mainSidebar > .link:hover{
+  background: var(--bg-hover);
+  transform: translateX(3px);
+}
+
+/* Checked link */
+.container > .sidebar > .mainSidebar > .checked{
+  background: var(--bg-checked);
+  box-shadow: inset 0 0 8px rgba(59,130,246,0.25);
+}
+
+.container > .sidebar > .mainSidebar > .checked::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 4px;
+  border-radius: 3px;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.container > .sidebar > .mainSidebar > .link > i{
+  margin-left: 2px;
+  font-size: 17px;
+  color: var(--font-color);
+  transition: color var(--transition);
+}
+
+.container > .sidebar > .mainSidebar > .link:hover > i{
+  color: var(--accent);
+}
+
+.container > .sidebar > .mainSidebar > .link > p{
+  font-size: 15px;
+  font-weight: 500; 
+}
+
+/* Bottom sidebar */
+.container > .sidebar > .bottomSidebar {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin-top: auto; 
+  margin-bottom: 20px;
+}
+
+.container > .sidebar > .bottomSidebar > .link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  height: 42px;
+  padding-left: 15px;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.3s ease, transform 0.3s ease;
+  color: var(--color-side-bar);
+}
+
+.container > .sidebar > .bottomSidebar > .link:hover {
+  background: var(--bg-hover); 
+  transform: translateX(4px);
+}
+
+.container > .sidebar > .bottomSidebar > .link > i {
+  font-size: 16px;
+}
+
+.container > .sidebar > .bottomSidebar > .link > p {
+  font-size: 15px;
+  font-weight: 500;
+}
+/* Content */
+.container > .content{
+  margin-left: 280px; 
+  margin-top: 20px;   
+  margin-right: 20px; 
+  margin-bottom: 20px; 
+  padding: 20px;      
+  background-color: var(--bg-side-bar); 
+  border-radius: var(--radius);
+  width: calc(100% - 300px); 
+  height: calc(100vh - 40px);
+  overflow-y: auto; 
+}
+/*Central bar*/
+.container > .content > .centralBar {
+  width: 100%;
+  min-height: 120px;
+  border-radius: var(--radius);
+  background: var(--font-color);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  align-items: center; 
+  text-align: center;
+}
+
+.container > .content > .centralBar > .block {
+  height: 80px;
+  border-radius: var(--radius);
+  background: black;
+  display: flex;
+  flex-direction: row; 
+  gap: 10px;
+  justify-content: center; /* centra horizontalmente */
+  align-items: center;     /* centra verticalmente */
+  text-align: center;      /* para el texto interno, si lo hay */
+}
+
+.container > .content > .itemsShop {
+  margin-top: 20px;
+  
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 10px;
   
 }
-.sidebar > .topSidebar > .userClient > .userSidebar{
+.container > .content > .itemsShop > .item {
+  width: 100;
+  height: 180px;
+  border-radius: var(--radius);
+  background: var(--font-color);
+  display: flex;
+  flex-direction: row;
+  
+}
+.container > .content > .itemsShop > .item > .left{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  
+}
+.container > .content > .itemsShop > .item > .rigth{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+.container > .content > .itemsShop > .item > .rigth > img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.container > .content > .itemsShop > .item > .left > p {
+  margin: 10px;
+  color: black;
+  font-weight: 700;
+
+}
+.container > .content > .itemsShop > .item > .left > p > span {
+  color: var(--color-side-bar);
+  font-weight: 700;
+}
+.container > .content > .itemsShop > .item > .left > div {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  gap: 10px;
+}
+.container > .content > .itemsShop > .item > .left > div > p {
+  color: #0f1626;
+}
+.container > .content > .itemsShop > .item > .left > div > .priceItem{
   font-size: 30px;
-  color: #e2e2e2;
+  font-weight: bold;
+}
+.container > .content > .itemsShop > .item > .left > div > .delete{
+  color: red;
+  font-size: 1.8rem;
+  cursor: pointer;
+  
 }
