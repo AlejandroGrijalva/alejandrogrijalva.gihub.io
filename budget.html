@@ -12,6 +12,9 @@
 
 <body>
     <div class="container">
+        <button class="toggleSidebar">
+            <i class="fa-solid fa-bars"></i>
+        </button>
         <aside class="sidebar">
             <!-- Top sidebar -->
             <div class="topSidebar">
@@ -86,7 +89,7 @@
                     <div class="rigth">
                         <img src="img/pinol-removebg-preview.webp" alt="">
                     </div>
-                    
+
                 </div>
                 <div class="item">
                     <div class="left">
@@ -133,5 +136,12 @@
     </div>
 
 </body>
+<script>
+  const toggleBtn = document.querySelector('.toggleSidebar');
+  const sidebar = document.querySelector('.sidebar');
 
+  toggleBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+  });
+</script>
 </html>

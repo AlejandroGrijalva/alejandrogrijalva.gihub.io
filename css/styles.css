@@ -32,6 +32,33 @@ a{
   width: 100%;
   height: 100vh;
 }
+/* Button Hamburguer */
+.toggleSidebar {
+  display: block;
+  visibility: hidden;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: var(--bg-side-bar);
+  color: var(--font-color);
+  border: none;
+  font-size: 22px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 1001;
+  transition: background 0.3s ease;
+}
+
+.toggleSidebar:hover {
+  background: var(--bg-hover);
+}
+
+/* Responsive - Ocultar sidebar en móviles */
+@media (max-width: 600px) {
+  
+}
+
 /* Sidebar */
 .container > .sidebar {  
   position: fixed;
