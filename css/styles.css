@@ -43,7 +43,7 @@ a{
   color: var(--font-color);
   border: none;
   font-size: 22px;
-  padding: 10px 12px;
+  padding: 7px 7px;
   border-radius: 10px;
   cursor: pointer;
   z-index: 1001;
