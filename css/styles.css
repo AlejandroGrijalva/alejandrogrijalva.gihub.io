@@ -316,5 +316,32 @@ a{
   color: red;
   font-size: 1.8rem;
   cursor: pointer;
+}
+.container > .content > .itemsShop2 {
+
+  grid-template-columns: repeat(8, 1fr);
   
+}
+.removeItem {
+  display: block;
+  
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  background: var(--font-color);
+  
+  border: none;
+  font-size: 44px;
+  padding: 3px;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 1001;
+  transition: background 0.3s ease;
+}
+.removeItem i {
+  color: green;
+}
+
+.toggleSidebar:hover {
+  background: var(--bg-hover);
 }
