@@ -99,35 +99,6 @@
         </button>
 
         
-
-        <!-- Librería -->
-        <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
-
-        <script>
-            const reader = new Html5Qrcode("reader");
-            const btnScan = document.getElementById("btnScan");
-            const result = document.getElementById("result");
-
-            btnScan.addEventListener("click", () => {
-                // Inicia la cámara trasera del teléfono
-                reader.start(
-                    { facingMode: "environment" }, // usa cámara trasera
-                    { fps: 10, qrbox: 250 },
-                    (decodedText) => {
-                        result.innerText = "✅ Código leído: " + decodedText;
-                        reader.stop(); // Detiene la cámara
-                    },
-                    (error) => {
-                        // Ignorar errores de lectura
-                    }
-                ).catch(err => {
-                    console.error("Error al abrir cámara:", err);
-                    alert("No se pudo abrir la cámara. Asegúrate de dar permisos.");
-                });
-            });
-        </script>
-
-        
     </div>
 
 </body>
