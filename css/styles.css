@@ -244,9 +244,9 @@ a{
   display: flex;
   flex-direction: row; 
   gap: 10px;
-  justify-content: center; /* centra horizontalmente */
-  align-items: center;     /* centra verticalmente */
-  text-align: center;      /* para el texto interno, si lo hay */
+  justify-content: center;
+  align-items: center;     
+  text-align: center;      
 }
 
 .container > .content > .itemsShop {
