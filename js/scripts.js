@@ -6,4 +6,4 @@ const toggleBtn = document.querySelector('.toggleSidebar');
     sidebar.classList.toggle('active');
   });
 
-//Remove Item
+//Remove Item from list
