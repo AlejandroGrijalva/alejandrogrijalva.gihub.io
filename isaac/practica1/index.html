@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJ8y8b4Q1sI7p9Qv+I2wFj9Jd8F9p4A6qfG3yG8r9T0A0D0w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container-fluid border-bottom mb-4 py-2 d-flex justify-content-between align-items-center">
+        <div>
+            <h5 class="mb-0 fw-bold">Joel Alejandro Ramirez Grijalva</h5>
+            <small class="text-muted">Número de control: 23CG0201</small>
+        </div>
+        <div class="text-end">
+            <h5 class="mb-0">Práctica #1: ¿Serás un Consultor Profesional de Hardware?</h5>
+        </div>
+    </div>
+
+    <div class="container-info">
+        <h1 class="h3 ms-3">Resumen del Perfil del Cliente y sus necesidades</h1>
+        <p class="ms-3">El cliente necesita un PC orientado a FPS muy altos en 1080p/1440p y con latencia mínima. Para
+            eso priorizamos:</p>
+        <ul>
+            <li class="ms-4">CPU con alto rendimiento por núcleo / alta frecuencia (mejor respuesta en juegos
+                competitivos).
+            </li>
+            <li class="ms-4">Motherboard con chipset X/Z (o X-series / Z-series) que permita overclocking y perfiles
+                XMP/EXPO para exprimir la RAM.</li>
+            <li class="ms-4">Memoria DDR5 rápida y de baja latencia (ideal 6000 MT/s CL30 o similar)</li>
+            <li class="ms-4">GPU capaz de entregar > 200+ FPS en juegos competitivos a 1080p/1440p (óptimo balance
+                precio/rendimiento).</li>
+            <li class="ms-4">Balance general para no exceder $2,000.</li>
+        </ul>
+    </div>
+
+    <!-- Tabla -->
+    <div class="cart-container">
+
+        <ul class="cart-header list-unstyled">
+            <li class="header-col product-col" style="margin-left: 20px;">Producto</li>
+            <li class="header-col link-col">Detalles</li>
+            <li class="header-col price-col">Precio</li>
+            <li class="header-col quantity-col">Cantidad</li>
+            <li class="header-col total-col">Total</li>
+        </ul>
+
+        <ul class="cart-items-wrapper list-unstyled">
+            <!-- CPU  -->
+            <li class="cart-row">
+                <div class="product-col product-info">
+                    <img src="img/cpu.jpg" alt="Zapatos de invierno" class="product-image">
+                    <div class="product-details">
+                        <p class="product-name">CPU</p>
+                        <p class="product-desc">RYZEN 7 7800X3D</p>
+                    </div>
+                </div>
+
+                <div class="link-col">
+                    <a href="https://www.amazon.com.mx/AMD-7800X3D-Radeon-Graphics-100-100000910WOF/dp/B0BTZB7F88/ref=asc_df_B0BTZB7F88?mcid=8ecd958fb2743b61a1ef927ac3be5563&tag=gledskshopmx-20&linkCode=df0&hvadid=709966298345&hvpos=&hvnetw=g&hvrand=1785415078177779223&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1010025&hvtargid=pla-2038214576084&psc=1&language=es_MX&gad_source=1"
+                        class="product-link">Ver detalles</a>
+                </div>
+
+                <div class="price-col">$429.32</div>
+                <div class="quantity-col"><input type="number" value="1" min="1"></div>
+                <div class="total-col">$429.32</div>
+            </li><!-- End col -->
+            <!-- Placa Madre -->
+            <li class="cart-row">
+                <div class="product-col product-info">
+                    <img src="img/placa_madre.webp" alt="Zapatos de invierno" class="product-image">
+                    <div class="product-details">
+                        <p class="product-name">Placa Madre</p>
+                        <p class="product-desc">Asus Tuf Gaming B650-plus</p>
+                    </div>
+                </div>
+
+                <div class="link-col">
+                    <a href="https://www.mercadolibre.com.mx/tarjeta-madre-asus-tuf-gaming-b650plus-wifi-am5-ddr5-atx/up/MLMU3321545640?pdp_filters=item_id:MLM3856204314&matt_tool=13932546&matt_word=&matt_source=google&matt_campaign_id=22114638230&matt_ad_group_id=177188373350&matt_match_type=&matt_network=g&matt_device=c&matt_creative=729726335432&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=5556136581&matt_product_id=MLM3856204314&matt_product_partition_id=2392713568021&matt_target_id=aud-1927595154406:pla-2392713568021&cq_src=google_ads&cq_cmp=22114638230&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=1&gad_campaignid=22114638230&gbraid=0AAAAAoTLPrKE8kv2lFhS90n84AIaRLBWs&gclid=CjwKCAiA2svIBhB-EiwARWDPjsl-Bf5LTSKkaFPY0UJLgk3904yB6ASZNNLqYtQqWceX1SvZD-aMWhoCu3IQAvD_BwE"
+                        class="product-link">Ver detalles</a>
+                </div>
+
+                <div class="price-col">$236.27</div>
+                <div class="quantity-col"><input type="number" value="1" min="1"></div>
+                <div class="total-col">$236.27</div>
+            </li><!-- End col -->
+            <!-- RAM -->
+            <li class="cart-row">
+                <div class="product-col product-info">
+                    <img src="img/ram.jpg" alt="Zapatos de invierno" class="product-image">
+                    <div class="product-details">
+                        <p class="product-name">Memoria RAM</p>
+                        <p class="product-desc">Corsair Vengeance RGB DDR5 RAM de 32 GB (2 x 16 GB)</p>
+                    </div>
+                </div>
+
+                <div class="link-col">
+                    <a href="https://www.amazon.com.mx/Corsair-C34-42-42-96-optimizado-computadora-Rendimiento/dp/B0C4Y3DCL4/ref=asc_df_B0C4Y3DCL4?mcid=deb30da29aea3b0885495c56cb020500&tag=gledskshopmx-20&linkCode=df0&hvadid=709978979471&hvpos=&hvnetw=g&hvrand=10004948338201989044&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1010025&hvtargid=pla-2189668960520&language=es_MX&gad_source=1&th=1"
+                        class="product-link">Ver detalles</a>
+                </div>
+
+                <div class="price-col">$140.21</div>
+                <div class="quantity-col"><input type="number" value="1" min="1"></div>
+                <div class="total-col">$140.21</div>
+            </li><!-- End col -->
+            <!-- GPU -->
+            <li class="cart-row">
+                <div class="product-col product-info">
+                    <img src="img/gpu.png" alt="Zapatos de invierno" class="product-image">
+                    <div class="product-details">
+                        <p class="product-name">GPU</p>
+                        <p class="product-desc">RTX 5070 Prime</p>
+                    </div>
+                </div>
+
+                <div class="link-col">
+                    <a href="https://www.cyberpuerta.mx/Computo-Hardware/Componentes/Tarjetas-de-Video/Tarjeta-de-Video-ASUS-NVIDIA-GeForce-RTX-5070-Prime-12GB-192-bit-GDDR7-PCI-Express-5-0.html?gad_source=1&gad_campaignid=22522648279&gbraid=0AAAAAD4nXn3vXv1RLQhpvm02iWOyQD7WK&gclid=CjwKCAiA2svIBhB-EiwARWDPjmAi8CjNzMdk93c_raEqjtvSp5-MT2SO9dOCxn3uUk0gKE089hflWhoCO2EQAvD_BwE"
+                        class="product-link">Ver detalles</a>
+                </div>
+
+                <div class="price-col">$637.97</div>
+                <div class="quantity-col"><input type="number" value="1" min="1"></div>
+                <div class="total-col">$637.97</div>
+            </li><!-- End col -->
+            <!-- SSD -->
+            <li class="cart-row">
+                <div class="product-col product-info">
+                    <img src="img/ssd.webp" alt="Zapatos de invierno" class="product-image">
+                    <div class="product-details">
+                        <p class="product-name">Almacenamiento (SSD)</p>
+                        <p class="product-desc">Samsung Nvme 990 Pro de 1 TB</p>
+                    </div>
+                </div>
+
+                <div class="link-col">
+                    <a href="https://www.mercadolibre.com.mx/ssd-samsung-nvme-990-pro-de-1-tb-7450-mbs/p/MLM23074847?pdp_filters=item_id%3AMLM2271780427&from=gshop&matt_tool=13932546&matt_word=&matt_source=google&matt_campaign_id=22114638230&matt_ad_group_id=177188377670&matt_match_type=&matt_network=g&matt_device=c&matt_creative=729726335486&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=735088283&matt_product_id=MLM23074847-product&matt_product_partition_id=2389849485325&matt_target_id=aud-1927594328786:pla-2389849485325&cq_src=google_ads&cq_cmp=22114638230&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=1&gad_campaignid=22114638230&gbraid=0AAAAAoTLPrKE8kv2lFhS90n84AIaRLBWs&gclid=CjwKCAiA2svIBhB-EiwARWDPjj4SK_v-K0nlEKxGitrCp8zJ3ytVIeJpWPC8wAatBQe6pBYbLfaN9BoCniEQAvD_BwE"
+                        class="product-link">Ver detalles</a>
+                </div>
+
+                <div class="price-col">$132.57</div>
+                <div class="quantity-col"><input type="number" value="1" min="1"></div>
+                <div class="total-col">$132.57</div>
+            </li><!-- End col -->
+            <!-- Fuente -->
+            <li class="cart-row">
+                <div class="product-col product-info">
+                    <img src="img/fuente_de_poder.jpg" alt="Zapatos de invierno" class="product-image">
+                    <div class="product-details">
+                        <p class="product-name">Fuente de Poder</p>
+                        <p class="product-desc">Corsair RM750e</p>
+                    </div>
+                </div>
+
+                <div class="link-col">
+                    <a href="https://www.amazon.com.mx/Corsair-alimentaci%C3%B3n-Totalmente-Modular-12V-2x6/dp/B0DPR6X7JX/ref=asc_df_B0DPR6X7JX?mcid=62c36c9e7b0c30b39115708d50e040fd&tag=gledskshopmx-20&linkCode=df0&hvadid=745054174681&hvpos=&hvnetw=g&hvrand=13335182137068090788&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1010025&hvtargid=pla-2394476585947&language=es_MX&gad_source=1&th=1"
+                        class="product-link">Ver detalles</a>
+                </div>
+
+                <div class="price-col">$110.19</div>
+                <div class="quantity-col"><input type="number" value="1" min="1"></div>
+                <div class="total-col">$110.19</div>
+            </li><!-- End col -->
+            <!-- Gabinete -->
+            <li class="cart-row">
+                <div class="product-col product-info">
+                    <img src="img/gabinete.jpg" alt="Zapatos de invierno" class="product-image">
+                    <div class="product-details">
+                        <p class="product-name">Gabinete</p>
+                        <p class="product-desc">HYTE Y60</p>
+                    </div>
+                </div>
+
+                <div class="link-col">
+                    <a href="https://www.amazon.com.mx/HYTE-Y60-panor%C3%A1mica-computadora-CS-HYTE-Y60-WW/dp/B0BVJ4ZFPZ/ref=asc_df_B0BVJ4ZFPZ?mcid=d38e7a4c817d3a35aef2f3337b753ce0&tag=gledskshopmx-20&linkCode=df0&hvadid=709873468494&hvpos=&hvnetw=g&hvrand=7604965452637427676&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1010025&hvtargid=pla-1963665132180&language=es_MX&gad_source=1&th=1"
+                        class="product-link">Ver detalles</a>
+                </div>
+
+                <div class="price-col">$235.07</div>
+                <div class="quantity-col"><input type="number" value="1" min="1"></div>
+                <div class="total-col">$235.07</div>
+            </li><!-- End col -->
+
+
+
+        </ul>
+        <div class="cart-summary"
+            style="text-align: right; margin-top: 15px; border-top: 2px solid #ddd; padding-top: 10px;">
+            <p style="font-weight: bold; font-size: 1.2em; margin-right: 2rem;">
+                Total general: <span id="cart-total" style="color: red">$1,921.6</span>
+            </p>
+        </div>
+
+    </div>
+    <div class="container-info">
+        <h1 class="h3 ms-3 mt-3">Presupuesto y Margen</h1>
+        <p class="ms-3">Total Aproximado: <strong>$1,921.6</strong><br>
+            Queda margen dentro del límite de $2,000 USD quedaron $80 que se podrian usar para:
+        </p>
+        <ul>
+            <li class="ms-4">Subir la capacidad del SSD</li>
+            <li class="ms-4">Cambiar la RAM por alguna de mayor frecuencia</li>
+            <li class="ms-4">Memoria DDR5 rápida y de baja latencia (ideal 6000 MT/s CL30 o similar)</li>
+            <li class="ms-4">Añadir un disipador con RGB</li>
+        </ul>
+        <br>
+        <!-- Justificación -->
+        <hr>
+        <h1 class="h3 ms-3">Justificación Técnica</h1>
+        <!-- Procesador -->
+        <p class="ms-3"><strong>Por qué Ryzen 7800X3D y uno con más nucleos?</strong></p>
+        <ul>
+            <li class="ms-4 me-4">Enfoque en la velocidad por núcleo: Para juegos competitivos como CS:GO o Valorant, es
+                más
+                crucial tener una alta
+                velocidad en cada núcleo del procesador que contar con una gran cantidad de ellos. Estos títulos se
+                benefician poco de
+                tener 16 o más núcleos.
+            </li>
+            <li class="ms-4 me-4">Ventaja de la caché 3D: La tecnología 3D V-Cache del Ryzen 7 7800X3D reduce
+                drásticamente
+                las latencias, lo que se
+                traduce en un mayor promedio de FPS y una mayor estabilidad en los juegos más demandantes, ofreciendo la
+                mejor relación
+                precio-rendimiento para gaming.
+            </li>
+        </ul>
+
+        <hr style="width: 80%; margin: 30px auto 25px auto;">
+        <!-- Placa madre -->
+        <p class="ms-3"><strong>Por qué esa placa madre?</strong></p>
+        <ul>
+            <li class="ms-4 me-4">Soporte para RAM rápida y overclocking: Es esencial una placa base con un chipset que
+                permita maximizar la velocidad de
+                la memoria RAM mediante perfiles XMP/EXPO y que soporte overclocking para ajustar el rendimiento.
+            </li>
+            <li class="ms-4 me-4">Elección equilibrada con la B650E: Para la plataforma AMD AM5, los chipsets B650E o
+                X670E son ideales. Se elige un
+                modelo como la ASUS TUF B650E-PLUS por su excelente equilibrio entre costo y características, incluyendo
+                componentes
+                estables (VRM) y opciones avanzadas de ajuste en la BIOS.
+            </li>
+        </ul>
+        <hr style="width: 80%; margin: 30px auto 25px auto;">
+        <!-- GPU -->
+        <p class="ms-3"><strong>Por qué una RTX 5070 </strong></p>
+        <ul>
+            <li class="ms-4 me-4">Rendimiento para gaming competitivo: El objetivo de una RTX 5070 es proporcionar un
+                excelente
+                rendimiento (FPS) en resoluciones 1080p y 1440p para juegos competitivos, con una mejor relación
+                costo-beneficio que
+                generaciones anteriores.
+            </li>
+            <li class="ms-4 me-4">Tecnologías de baja latencia: Esta nueva generación incluye tecnologías clave como
+                NVIDIA Reflex 2 y DLSS 4, que están
+                diseñadas específicamente para reducir la latencia del sistema y generar cuadros, priorizándose para un
+                rendimiento
+                fluido y receptivo.
+            </li>
+        </ul>
+        <hr style="width: 80%; margin: 30px auto 25px auto;">
+
+        <!-- RAM -->
+        <p class="ms-3"><strong>Por qué utilizamos esta memoria RAM </strong></p>
+        <ul>
+            <li class="ms-4 me-4">Punto óptimo entre velocidad y latencia: La configuración de 6400 MT/s con una
+                latencia CL30 representa el equilibrio perfecto. Ofrece una alta velocidad de transferencia manteniendo
+                una
+                latencia real
+                baja, lo que impacta directamente en un mejor FPS en juegos.
+            </li>
+            <li class="ms-4 me-4">Capacidad y compatibilidad futura: 32GB de RAM se consideran suficientes para juegos
+                de e-sports y multitarea, dejando
+                un margen para futuras necesidades. Además, es una configuración ampliamente compatible con los perfiles
+                XMP/EXPO de las
+                placas base modernas.
+            </li>
+        </ul>
+
+
+
+
+    </div>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
