@@ -1,6 +1,6 @@
-/* --- Reinicio de Listas y Contenedor Principal --- */
+
 .list-unstyled {
-    list-style: none; /* Elimina los puntos predeterminados */
+    list-style: none; 
     padding: 0;
     margin: 0;
 }
@@ -134,7 +134,7 @@
     border-radius: 4px;
 }
 
-/* --- Media Queries (Responsividad básica) --- */
+
 @media (max-width: 600px) {
     .cart-header {
         display: none; 
