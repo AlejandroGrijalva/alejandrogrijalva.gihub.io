@@ -1,15 +1,22 @@
 /* Responsive */
-@media (max-width: 900px){
-  .container > .sidebar{
+@media (max-width: 900px) {
+  .container > .sidebar {
     width: 200px;
   }
-  .container > .content{
-    margin-left: 240px;     
-    width: calc(100% - 240px); 
-   }
+  .container > .content {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+  }
+  .search__container {
+    padding-top: 10px;
+  }
+
+  .search__input {
+    width: 70%;
+  }
 }
 
-@media (max-width: 600px){
+@media (max-width: 600px) {
   .sidebar {
     left: -260px;
   }
@@ -17,18 +24,17 @@
   .sidebar.active {
     left: 20px;
   }
-  
-  
-  .container > .sidebar > .topSidebar{
+
+  .container > .sidebar > .topSidebar {
     margin-top: 3rem;
   }
-  .content {  
+  .content {
     margin: 20px;
     width: calc(100% - 40px);
   }
   .toggleSidebar {
     display: block; /* Se muestra el botón */
-     visibility:visible;
+    visibility: visible;
   }
 
   .container > .sidebar {
@@ -45,30 +51,29 @@
     width: calc(100% - 40px);
   }
 
+  .search__input {
+    width: 100%;
+  }
 }
-@media (max-width: 1557px){
+@media (max-width: 1557px) {
   .container > .content > .itemsShop {
     grid-template-columns: repeat(3, 1fr);
   }
   .container > .content > .itemsShop2 {
-  
-  grid-template-columns: repeat(4, 1fr);
-    
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
-@media (max-width: 1220px){
+@media (max-width: 1220px) {
   .container > .content > .itemsShop {
     grid-template-columns: repeat(2, 1fr);
-}
-.container > .content > .itemsShop2 {
-  
-  grid-template-columns: repeat(3, 1fr);
-    
+  }
+  .container > .content > .itemsShop2 {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 930px){
+@media (max-width: 930px) {
   .container > .content > .itemsShop {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -76,9 +81,13 @@
     flex-direction: column;
   }
   .container > .content > .itemsShop2 {
-  
-  grid-template-columns: repeat(2, 1fr);
-    
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .search__container {
+    padding-top: 20px;
   }
 
+  .search__input {
+    width: 60%;
+  }
 }
