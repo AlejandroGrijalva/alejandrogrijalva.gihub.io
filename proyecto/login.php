@@ -1,10 +1,7 @@
 <?php
-    session_destroy();
+    
     session_start();
-    if (!isset($_SESSION['usuario_id'])) {
-    header("Location: login.php");
-    exit();
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -219,7 +216,7 @@ if (isset($_POST["login"])) {
             $_SESSION['usuario_id'] = $usuario['id'];
             $_SESSION['usuario_nombre'] = $usuario['name'];
             $_SESSION['usuario_email'] = $usuario['email'];
-            echo "<script>alert('Usuario registrado exitosamente'); window.location.href = 'index.php';</script>";
+            echo "<script> window.location.href = 'index.php';</script>";
             
             
   

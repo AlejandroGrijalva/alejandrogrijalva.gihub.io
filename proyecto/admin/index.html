@@ -1,175 +1,191 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Demo</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
     <!-- FontAwesome-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+  </head>
 
-<body>
+  <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary px-12 sticki">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Shopping</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Shopping</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <form class="d-flex me-auto mb-2 mb-lg-0" role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="d-flex me-auto mb-2 mb-lg-0" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-                <ul class="navbar-nav ">
-                    <li class="nav-item">
-                        <img src="./img/image.png" alt="" class="rounded-circle border border-success" width="40px"
-                            height="40px">
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Alejandro Grijalva
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Perfil</a></li>
-                            <li><a class="dropdown-item" href="#">Configuracion</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
-                        </ul>
-                    </li>
-
-                </ul>
-
-            </div>
+          </form>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <img
+                src="./img/image.png"
+                alt=""
+                class="rounded-circle border border-success"
+                width="40px"
+                height="40px"
+              />
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Alejandro Grijalva
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Perfil</a></li>
+                <li><a class="dropdown-item" href="#">Configuracion</a></li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+              </ul>
+            </li>
+          </ul>
         </div>
-    </nav><!-- END NAVBAR-->
+      </div>
+    </nav>
+    <!-- END NAVBAR-->
     <div class="row">
-        <aside class="col-2">
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">
-                        <i class="fa fa-home"></i> Inicio
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fa fa-list"></i> Productos
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fa fa-shopping-cart"></i> Pedidos
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fa fa-users"></i> Usuarios
-                    </a>
-                </li>
-            </ul>
-        </aside><!-- END ASIDE -->
-        <main class="col-10">
-            <div class="row p-3">
-                <!-- CARDS -->
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h3>
-                                        <i class="fa fa-shopping-cart"></i>
-                                    </h3>
-                                </div>
-                                <div class="col">
-                                    <h3 class="h2 text-center">20</h3>
-                                    <small>
-                                        Pedidos
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+      <aside class="col-2">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">
+              <i class="fa fa-home"></i> Inicio
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="productos.php">
+              <i class="fa fa-list"></i> Productos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fa fa-shopping-cart"></i> Pedidos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fa fa-users"></i> Usuarios
+            </a>
+          </li>
+        </ul>
+      </aside>
+      <!-- END ASIDE -->
+      <main class="col-10">
+        <div class="row p-3">
+          <!-- CARDS -->
+          <div class="col-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h3>
+                      <i class="fa fa-shopping-cart"></i>
+                    </h3>
+                  </div>
+                  <div class="col">
+                    <h3 class="h2 text-center">20</h3>
+                    <small> Pedidos </small>
+                  </div>
                 </div>
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h3>
-                                        <i class="fa fa-shopping-cart"></i>
-                                    </h3>
-                                </div>
-                                <div class="col">
-                                    <h3 class="h2 text-center">20</h3>
-                                    <small>
-                                        Pedidos
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h3>
-                                        <i class="fa-solid fa-money-bill-transfer"></i>
-                                    </h3>
-                                </div>
-                                <div class="col">
-                                    <h3 class="h2 text-center">$20,154</h3>
-                                    <small>
-                                        Ingresos
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h3>
-                                        <i class="fa fa-money-check"></i>
-                                    </h3>
-                                </div>
-                                <div class="col">
-                                    <h3 class="h2 text-center">$10,999</h3>
-                                    <small>
-                                        Egresos
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
-        </main><!-- END MAIN -->
+          </div>
+          <div class="col-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h3>
+                      <i class="fa fa-shopping-cart"></i>
+                    </h3>
+                  </div>
+                  <div class="col">
+                    <h3 class="h2 text-center">20</h3>
+                    <small> Pedidos </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h3>
+                      <i class="fa-solid fa-money-bill-transfer"></i>
+                    </h3>
+                  </div>
+                  <div class="col">
+                    <h3 class="h2 text-center">$20,154</h3>
+                    <small> Ingresos </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h3>
+                      <i class="fa fa-money-check"></i>
+                    </h3>
+                  </div>
+                  <div class="col">
+                    <h3 class="h2 text-center">$10,999</h3>
+                    <small> Egresos </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <!-- END MAIN -->
     </div>
 
-
-
-
-
-
-
-
     <!-- Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
