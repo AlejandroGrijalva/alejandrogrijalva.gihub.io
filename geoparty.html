@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CompilerParty 🎓</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --purple:       #52337f;
+      --purple-mid:   #6d46a8;
+      --purple-light: #9b7ecc;
+      --purple-dark:  #341f54;
+      --bg:           #1a0f2e;
+      --card-bg:      #2c1d4a;
+      --card-used:    #1e1535;
+      --text:         #f0ecff;
+      --text-muted:   #b8a8e0;
+      --accent:       #f4c542;
+      --correct:      #3dba6f;
+      --wrong:        #e04545;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 28px 16px 60px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    header h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: -1px;
+    }
+    header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-top: 4px;
+    }
+
+    /* ── SCOREBOARD ── */
+    #scoreboard {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      background: var(--purple-dark);
+      border: 2px solid var(--purple-mid);
+      border-radius: 12px;
+      padding: 14px 36px;
+      margin-bottom: 32px;
+    }
+    .sc-block { text-align: center; }
+    .sc-label { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+    .sc-val   { font-size: 2rem; font-weight: 900; color: var(--accent); }
+    .sc-sep   { width: 2px; height: 44px; background: var(--purple-mid); }
+
+    /* ── BOARD ── */
+    #board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      width: 100%;
+      max-width: 860px;
+    }
+
+    /* category header cell */
+    .cat-header {
+      background: var(--purple);
+      border-radius: 10px;
+      padding: 16px 8px;
+      text-align: center;
+      font-size: clamp(0.7rem, 1.6vw, 0.95rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: #fff;
+      border: 2px solid var(--purple-mid);
+    }
+
+    /* question card */
+    .q-card {
+      background: var(--card-bg);
+      border: 2px solid var(--purple-mid);
+      border-radius: 10px;
+      min-height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.12s;
+    }
+    .q-card:hover:not(.used) {
+      background: var(--purple);
+      border-color: var(--purple-light);
+      transform: scale(1.04);
+    }
+    .q-card .pts {
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .q-card.used {
+      cursor: default;
+      background: var(--card-used);
+      border-color: var(--purple-dark);
+      transform: none !important;
+    }
+    .q-card.used .pts {
+      color: var(--purple-mid);
+      text-decoration: line-through;
+    }
+
+    /* ── MODAL ── */
+    #modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(10, 5, 25, 0.88);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    #modal-overlay.active { display: flex; }
+
+    #modal {
+      background: var(--card-bg);
+      border: 2px solid var(--purple-mid);
+      border-radius: 16px;
+      padding: 36px 32px 28px;
+      max-width: 560px;
+      width: 100%;
+    }
+
+    #modal .m-cat {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--purple-light);
+      margin-bottom: 4px;
+    }
+    #modal .m-pts {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    #modal .m-q {
+      font-size: clamp(1rem, 2.2vw, 1.35rem);
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    /* code snippet inside question */
+    #modal .m-q code {
+      display: block;
+      background: var(--purple-dark);
+      border: 1px solid var(--purple-mid);
+      border-radius: 6px;
+      padding: 8px 14px;
+      margin-top: 10px;
+      font-family: 'Courier New', monospace;
+      font-size: 1.05rem;
+      color: #d4bbff;
+      letter-spacing: 0.5px;
+    }
+
+    .opts { display: flex; flex-direction: column; gap: 8px; }
+    .opt-btn {
+      background: var(--purple-dark);
+      border: 2px solid var(--purple);
+      border-radius: 8px;
+      padding: 12px 18px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.97rem;
+      color: var(--text);
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .opt-btn:hover:not(:disabled) {
+      background: var(--purple);
+      border-color: var(--purple-light);
+    }
+    .opt-btn.correct  { background: var(--correct); border-color: var(--correct); color: #fff; font-weight: 700; }
+    .opt-btn.wrong    { background: var(--wrong);   border-color: var(--wrong);   color: #fff; }
+    .opt-btn:disabled { cursor: default; }
+
+    #m-feedback {
+      margin-top: 16px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: center;
+      min-height: 24px;
+    }
+    #m-feedback.ok  { color: var(--correct); }
+    #m-feedback.err { color: var(--wrong); }
+
+    #m-close {
+      display: none;
+      margin: 18px auto 0;
+      background: var(--purple);
+      border: none;
+      border-radius: 8px;
+      padding: 11px 36px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+    }
+    #m-close:hover { background: var(--purple-mid); }
+
+    /* ── WIN ── */
+    #win-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+      margin-top: 40px;
+    }
+    #win-screen h2 { font-size: 2.2rem; font-weight: 900; color: var(--accent); }
+    #win-final     { font-size: 3rem; font-weight: 900; color: var(--accent); }
+    #win-msg       { color: var(--text-muted); font-size: 1rem; }
+    #restart-btn {
+      background: var(--purple);
+      border: none;
+      border-radius: 10px;
+      padding: 12px 40px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    #restart-btn:hover { background: var(--purple-mid); }
+
+    @media (max-width: 500px) {
+      #board { gap: 6px; }
+      #modal { padding: 24px 16px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🎓 CompilerParty</h1>
+  <p>Lenguajes y Autómatas II — ¡Pon a prueba lo que sabes!</p>
+</header>
+
+<div id="scoreboard">
+  <div class="sc-block">
+    <div class="sc-label">Puntos</div>
+    <div class="sc-val" id="sc-pts">0</div>
+  </div>
+  <div class="sc-sep"></div>
+  <div class="sc-block">
+    <div class="sc-label">Progreso</div>
+    <div class="sc-val" id="sc-prog">0/9</div>
+  </div>
+</div>
+
+<div id="board"></div>
+
+<div id="win-screen">
+  <div style="font-size:2.5rem">🏆</div>
+  <h2>¡Juego terminado!</h2>
+  <p>Puntaje final:</p>
+  <div id="win-final">0</div>
+  <p id="win-msg"></p>
+  <button id="restart-btn" onclick="init()">Jugar de nuevo</button>
+</div>
+
+<!-- MODAL -->
+<div id="modal-overlay">
+  <div id="modal">
+    <div class="m-cat" id="m-cat"></div>
+    <div class="m-pts" id="m-pts"></div>
+    <div class="m-q"   id="m-q"></div>
+    <div class="opts"  id="m-opts"></div>
+    <div id="m-feedback"></div>
+    <button id="m-close" onclick="closeModal()">Continuar →</button>
+  </div>
+</div>
+
+<script>
+// ──────────────────────────────────────────
+// PREGUNTAS — 3 categorías × 3 valores
+// ──────────────────────────────────────────
+const CATS = [
+  {
+    name: "📝 Notaciones",
+    qs: [
+      {
+        pts: 100,
+        q: "¿Cómo se escribe en notación POSTFIJA la expresión?",
+        code: "A + B",
+        opts: ["+ A B", "A + B", "A B +", "B A +"],
+        ans: 2
+      },
+      {
+        pts: 200,
+        q: "¿Cuál es la notación PREFIJA de la expresión?",
+        code: "A + B * C",
+        opts: ["A B C * +", "+ A * B C", "* B C + A", "A + * B C"],
+        ans: 1
+      },
+      {
+        pts: 300,
+        q: "¿Cuál es la notación POSTFIJA de esta expresión?",
+        code: "(A + B) * C",
+        opts: ["* + A B C", "A B + C *", "A + B * C", "C * A B +"],
+        ans: 1
+      }
+    ]
+  },
+  {
+    name: "🌳 Análisis Semántico",
+    qs: [
+      {
+        pts: 100,
+        q: "En un árbol de expresión, ¿qué representan las HOJAS del árbol?",
+        opts: ["Operadores", "Operandos", "Funciones", "Paréntesis"],
+        ans: 1
+      },
+      {
+        pts: 200,
+        q: "¿Qué detecta un compilador con la comprobación de tipos?",
+        code: "int x = 10 + \"hola\";",
+        opts: [
+          "Un error de sintaxis",
+          "Un error de operandos incompatibles",
+          "Un error de desbordamiento",
+          "Un error de compilación de red"
+        ],
+        ans: 1
+      },
+      {
+        pts: 300,
+        q: "En la regla gramatical E → E1 + T, ¿qué hace la acción semántica?",
+        opts: [
+          "Detecta errores de tipo",
+          "Calcula E.valor = E1.valor + T.valor",
+          "Genera código máquina directamente",
+          "Elimina el operador del árbol"
+        ],
+        ans: 1
+      }
+    ]
+  },
+  {
+    name: "⚙️ Código Intermedio",
+    qs: [
+      {
+        pts: 100,
+        q: "¿Cuántas variables temporales genera el compilador para esta expresión?",
+        code: "x = a + b * c",
+        opts: ["0", "1", "2", "3"],
+        ans: 2
+      },
+      {
+        pts: 200,
+        q: "¿Cuál es el código intermedio correcto para la asignación?",
+        code: "y = x + 2",
+        opts: [
+          "y = x + 2 (directo)",
+          "t1 = x + 2 / y = t1",
+          "param x / call suma",
+          "goto L1 / y = x"
+        ],
+        ans: 1
+      },
+      {
+        pts: 300,
+        q: "¿Qué técnica de optimización se aplica aquí?",
+        code: "x = 2 * 3  →  x = 6",
+        opts: [
+          "Reducción de fuerza",
+          "Código invariante de ciclo",
+          "Evaluación de constantes en compilación",
+          "Eliminación de código muerto"
+        ],
+        ans: 2
+      }
+    ]
+  }
+];
+
+// ──────────────────────────────────────────
+// ESTADO
+// ──────────────────────────────────────────
+let score = 0, answered = 0, currentCard = null;
+
+// ──────────────────────────────────────────
+// INICIAR
+// ──────────────────────────────────────────
+function init() {
+  score = 0; answered = 0; currentCard = null;
+  refresh();
+  document.getElementById('win-screen').style.display = 'none';
+  const board = document.getElementById('board');
+  board.style.display = 'grid';
+  board.innerHTML = '';
+
+  // headers
+  CATS.forEach(cat => {
+    const h = document.createElement('div');
+    h.className = 'cat-header';
+    h.textContent = cat.name;
+    board.appendChild(h);
+  });
+
+  // rows: 100, 200, 300
+  [0,1,2].forEach(qi => {
+    CATS.forEach((cat, ci) => {
+      const card = document.createElement('div');
+      card.className = 'q-card';
+      card.id = `c${ci}${qi}`;
+      card.innerHTML = `<span class="pts">$${cat.qs[qi].pts}</span>`;
+      card.addEventListener('click', () => open(ci, qi, card));
+      board.appendChild(card);
+    });
+  });
+}
+
+// ──────────────────────────────────────────
+// ABRIR PREGUNTA
+// ──────────────────────────────────────────
+function open(ci, qi, card) {
+  if (card.classList.contains('used')) return;
+  currentCard = card;
+  const q = CATS[ci].qs[qi];
+
+  document.getElementById('m-cat').textContent = CATS[ci].name;
+  document.getElementById('m-pts').textContent = `$${q.pts}`;
+
+  // pregunta + código opcional
+  const mqEl = document.getElementById('m-q');
+  mqEl.innerHTML = q.q + (q.code ? `<code>${q.code}</code>` : '');
+
+  document.getElementById('m-feedback').textContent = '';
+  document.getElementById('m-feedback').className = '';
+  document.getElementById('m-close').style.display = 'none';
+
+  const optsEl = document.getElementById('m-opts');
+  optsEl.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = `${String.fromCharCode(65+i)}) ${opt}`;
+    btn.addEventListener('click', () => answer(i, q, btn));
+    optsEl.appendChild(btn);
+  });
+
+  document.getElementById('modal-overlay').classList.add('active');
+}
+
+// ──────────────────────────────────────────
+// RESPONDER
+// ──────────────────────────────────────────
+function answer(sel, q, btn) {
+  document.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
+  const fb = document.getElementById('m-feedback');
+  const ok = sel === q.ans;
+
+  document.querySelectorAll('.opt-btn')[q.ans].classList.add('correct');
+  if (!ok) btn.classList.add('wrong');
+
+  if (ok) {
+    score += q.pts;
+    fb.textContent = `✅ ¡Correcto! +$${q.pts}`;
+    fb.className = 'ok';
+  } else {
+    fb.textContent = `❌ Incorrecto. Respuesta: ${String.fromCharCode(65+q.ans)}) ${q.opts[q.ans]}`;
+    fb.className = 'err';
+  }
+
+  answered++;
+  currentCard.classList.add('used');
+  refresh();
+  document.getElementById('m-close').style.display = 'block';
+  if (answered === 9) document.getElementById('m-close').textContent = 'Ver resultado 🏆';
+}
+
+// ──────────────────────────────────────────
+// CERRAR MODAL
+// ──────────────────────────────────────────
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('active');
+  if (answered === 9) showWin();
+}
+
+// ──────────────────────────────────────────
+// PANTALLA FINAL
+// ──────────────────────────────────────────
+function showWin() {
+  document.getElementById('board').style.display = 'none';
+  document.getElementById('win-final').textContent = `$${score}`;
+  const pct = score / 1800;
+  const msg =
+    pct === 1     ? '🏅 ¡Puntaje perfecto! Eres un experto en compiladores.' :
+    pct >= 0.67   ? '🌟 ¡Muy bien! Dominaste la mayoría de los temas.' :
+    pct >= 0.33   ? '📖 No está mal, repasa un poco más.' :
+                    '💡 Estudia el material del index.html y vuelve a intentarlo.';
+  document.getElementById('win-msg').textContent = msg;
+  document.getElementById('win-screen').style.display = 'flex';
+}
+
+// ──────────────────────────────────────────
+// ACTUALIZAR MARCADOR
+// ──────────────────────────────────────────
+function refresh() {
+  document.getElementById('sc-pts').textContent  = score;
+  document.getElementById('sc-prog').textContent = `${answered}/9`;
+}
+
+init();
+</script>
+</body>
+</html>
