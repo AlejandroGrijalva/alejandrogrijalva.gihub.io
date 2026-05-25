@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CompilerParty 🎓</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --purple: #52337f;
+        --purple-mid: #6d46a8;
+        --purple-light: #9b7ecc;
+        --purple-dark: #341f54;
+        --bg: #1a0f2e;
+        --card-bg: #2c1d4a;
+        --card-used: #1e1535;
+        --text: #f0ecff;
+        --text-muted: #b8a8e0;
+        --accent: #f4c542;
+        --correct: #3dba6f;
+        --wrong: #e04545;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Outfit", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 28px 16px 60px;
+      }
+
+      /* ── HEADER ── */
+      header {
+        text-align: center;
+        margin-bottom: 28px;
+      }
+      header h1 {
+        font-size: clamp(2rem, 5vw, 3.2rem);
+        font-weight: 900;
+        color: var(--accent);
+        letter-spacing: -1px;
+      }
+      header p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-top: 4px;
+      }
+
+      /* ── SCOREBOARD ── */
+      #scoreboard {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        background: var(--purple-dark);
+        border: 2px solid var(--purple-mid);
+        border-radius: 12px;
+        padding: 14px 36px;
+        margin-bottom: 32px;
+      }
+      .sc-block {
+        text-align: center;
+      }
+      .sc-label {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .sc-val {
+        font-size: 2rem;
+        font-weight: 900;
+        color: var(--accent);
+      }
+      .sc-sep {
+        width: 2px;
+        height: 44px;
+        background: var(--purple-mid);
+      }
+
+      /* ── BOARD ── */
+      #board {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        width: 100%;
+        max-width: 860px;
+      }
+
+      /* category header cell */
+      .cat-header {
+        background: var(--purple);
+        border-radius: 10px;
+        padding: 16px 8px;
+        text-align: center;
+        font-size: clamp(0.7rem, 1.6vw, 0.95rem);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        color: #fff;
+        border: 2px solid var(--purple-mid);
+      }
+
+      /* question card */
+      .q-card {
+        background: var(--card-bg);
+        border: 2px solid var(--purple-mid);
+        border-radius: 10px;
+        min-height: 88px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition:
+          background 0.15s,
+          border-color 0.15s,
+          transform 0.12s;
+      }
+      .q-card:hover:not(.used) {
+        background: var(--purple);
+        border-color: var(--purple-light);
+        transform: scale(1.04);
+      }
+      .q-card .pts {
+        font-size: clamp(1.4rem, 3vw, 1.9rem);
+        font-weight: 900;
+        color: var(--accent);
+      }
+      .q-card.used {
+        cursor: default;
+        background: var(--card-used);
+        border-color: var(--purple-dark);
+        transform: none !important;
+      }
+      .q-card.used .pts {
+        color: var(--purple-mid);
+        text-decoration: line-through;
+      }
+
+      /* ── MODAL ── */
+      #modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 5, 25, 0.88);
+        z-index: 100;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      #modal-overlay.active {
+        display: flex;
+      }
+
+      #modal {
+        background: var(--card-bg);
+        border: 2px solid var(--purple-mid);
+        border-radius: 16px;
+        padding: 36px 32px 28px;
+        max-width: 560px;
+        width: 100%;
+      }
+
+      #modal .m-cat {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--purple-light);
+        margin-bottom: 4px;
+      }
+      #modal .m-pts {
+        font-size: 1.4rem;
+        font-weight: 900;
+        color: var(--accent);
+        margin-bottom: 18px;
+      }
+      #modal .m-q {
+        font-size: clamp(1rem, 2.2vw, 1.35rem);
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 24px;
+        line-height: 1.5;
+      }
+
+      /* code snippet inside question */
+      #modal .m-q code {
+        display: block;
+        background: var(--purple-dark);
+        border: 1px solid var(--purple-mid);
+        border-radius: 6px;
+        padding: 8px 14px;
+        margin-top: 10px;
+        font-family: "Courier New", monospace;
+        font-size: 1.05rem;
+        color: #d4bbff;
+        letter-spacing: 0.5px;
+      }
+
+      .opts {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .opt-btn {
+        background: var(--purple-dark);
+        border: 2px solid var(--purple);
+        border-radius: 8px;
+        padding: 12px 18px;
+        font-family: "Outfit", sans-serif;
+        font-size: 0.97rem;
+        color: var(--text);
+        cursor: pointer;
+        text-align: left;
+        transition:
+          background 0.12s,
+          border-color 0.12s;
+      }
+      .opt-btn:hover:not(:disabled) {
+        background: var(--purple);
+        border-color: var(--purple-light);
+      }
+      .opt-btn.correct {
+        background: var(--correct);
+        border-color: var(--correct);
+        color: #fff;
+        font-weight: 700;
+      }
+      .opt-btn.wrong {
+        background: var(--wrong);
+        border-color: var(--wrong);
+        color: #fff;
+      }
+      .opt-btn:disabled {
+        cursor: default;
+      }
+
+      #m-feedback {
+        margin-top: 16px;
+        font-size: 1rem;
+        font-weight: 700;
+        text-align: center;
+        min-height: 24px;
+      }
+      #m-feedback.ok {
+        color: var(--correct);
+      }
+      #m-feedback.err {
+        color: var(--wrong);
+      }
+
+      #m-close {
+        display: none;
+        margin: 18px auto 0;
+        background: var(--purple);
+        border: none;
+        border-radius: 8px;
+        padding: 11px 36px;
+        font-family: "Outfit", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #fff;
+        cursor: pointer;
+      }
+      #m-close:hover {
+        background: var(--purple-mid);
+      }
+
+      /* ── WIN ── */
+      #win-screen {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        text-align: center;
+        margin-top: 40px;
+      }
+      #win-screen h2 {
+        font-size: 2.2rem;
+        font-weight: 900;
+        color: var(--accent);
+      }
+      #win-final {
+        font-size: 3rem;
+        font-weight: 900;
+        color: var(--accent);
+      }
+      #win-msg {
+        color: var(--text-muted);
+        font-size: 1rem;
+      }
+      #restart-btn {
+        background: var(--purple);
+        border: none;
+        border-radius: 10px;
+        padding: 12px 40px;
+        font-family: "Outfit", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #fff;
+        cursor: pointer;
+        margin-top: 8px;
+      }
+      #restart-btn:hover {
+        background: var(--purple-mid);
+      }
+
+      @media (max-width: 500px) {
+        #board {
+          gap: 6px;
+        }
+        #modal {
+          padding: 24px 16px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>🎓 CompilerParty</h1>
+      <p>Lenguajes y Autómatas II — ¡Pon a prueba lo que sabes!</p>
+    </header>
+
+    <div id="scoreboard">
+      <div class="sc-block">
+        <div class="sc-label">Puntos</div>
+        <div class="sc-val" id="sc-pts">0</div>
+      </div>
+      <div class="sc-sep"></div>
+      <div class="sc-block">
+        <div class="sc-label">Progreso</div>
+        <div class="sc-val" id="sc-prog">0/12</div>
+      </div>
+    </div>
+
+    <div id="board"></div>
+
+    <div id="win-screen">
+      <div style="font-size: 2.5rem">🏆</div>
+      <h2>¡Juego terminado!</h2>
+      <p>Puntaje final:</p>
+      <div id="win-final">0</div>
+      <p id="win-msg"></p>
+      <button id="restart-btn" onclick="init()">Jugar de nuevo</button>
+    </div>
+
+    <!-- MODAL -->
+    <div id="modal-overlay">
+      <div id="modal">
+        <div class="m-cat" id="m-cat"></div>
+        <div class="m-pts" id="m-pts"></div>
+        <div class="m-q" id="m-q"></div>
+        <div class="opts" id="m-opts"></div>
+        <div id="m-feedback"></div>
+        <button id="m-close" onclick="closeModal()">Continuar →</button>
+      </div>
+    </div>
+
+    <script>
+      // ──────────────────────────────────────────
+      // PREGUNTAS — 4 categorías × 3 valores
+      // ──────────────────────────────────────────
+      const CATS = [
+        {
+          name: "🌳 Análisis Semántico",
+          qs: [
+            {
+              pts: 100,
+              q: "En un árbol de expresión, ¿qué representan los nodos internos?",
+              opts: ["Operandos", "Operadores", "Paréntesis", "Variables"],
+              ans: 1,
+            },
+            {
+              pts: 200,
+              q: "¿Qué tipo de error semántico se detecta en esta línea de código?",
+              code: 'int x = 10 + "hola";',
+              opts: [
+                "Uso de variable no declarada",
+                "Falta de punto y coma",
+                "Incompatibilidad de tipos en la expresión",
+                "Desbordamiento de memoria",
+              ],
+              ans: 2,
+            },
+            {
+              pts: 300,
+              q: "¿Qué estructura almacena información sobre variables, funciones (nombre, tipo, memoria, ámbito)?",
+              opts: [
+                "La pila semántica",
+                "La tabla de símbolos",
+                "El árbol de sintaxis abstracta",
+                "El esquema de traducción",
+              ],
+              ans: 1,
+            },
+          ],
+        },
+        {
+          name: "⚙️ Código Intermedio",
+          qs: [
+            {
+              pts: 100,
+              q: "¿Cómo se escribe la expresión A + B en notación POSTFIJA?",
+              opts: ["+ A B", "A B +", "A + B", "B A +"],
+              ans: 1,
+            },
+            {
+              pts: 200,
+              q: "¿Qué representación de código intermedio consiste en una operación con dos operandos y un resultado?",
+              code: "(+, a, b, t1)",
+              opts: ["Triplos", "Notación Polaca", "Cuádruplos", "Código P"],
+              ans: 2,
+            },
+            {
+              pts: 300,
+              q: "¿Cuál es el código intermedio (saltos y etiquetas) generado para esta estructura de control?",
+              code: "if (a > b) x = a; else x = b;",
+              opts: [
+                "param a / param b / call max",
+                "if a > b goto L1 \\n x = b \\n goto L2 \\n L1: x = a \\n L2:",
+                "t1 = a > b / x = t1",
+                "x = a ? b",
+              ],
+              ans: 1,
+            },
+          ],
+        },
+        {
+          name: "⚡ Optimización",
+          qs: [
+            {
+              pts: 100,
+              q: "¿Qué tipo de optimización local evalúa expresiones constantes en tiempo de compilación?",
+              code: "x = 2 * 3  →  x = 6",
+              opts: [
+                "Reducción de fuerza",
+                "Evaluación de constantes",
+                "Eliminación de código muerto",
+                "Código invariante de ciclo",
+              ],
+              ans: 1,
+            },
+            {
+              pts: 200,
+              q: "¿Qué optimización saca fuera de un ciclo los cálculos que no cambian entre iteraciones?",
+              code: "for (i=0; i<n; i++) { y = a * b; x[i] = y + i; }",
+              opts: [
+                "Reducción de fuerza",
+                "Código invariante de ciclo",
+                "Eliminación de operaciones neutras",
+                "Propagación de constantes",
+              ],
+              ans: 1,
+            },
+            {
+              pts: 300,
+              q: "¿Qué técnica de optimización en ciclos reemplaza una operación costosa por una más simple?",
+              code: "x = i * 2  →  x = x + 2",
+              opts: [
+                "Eliminación de código muerto",
+                "Propagación de copias",
+                "Reducción de fuerza",
+                "Desenrollado de ciclos",
+              ],
+              ans: 2,
+            },
+          ],
+        },
+        {
+          name: "💻 Código Objeto",
+          qs: [
+            {
+              pts: 100,
+              q: "¿Por qué el compilador prefiere usar registros del CPU en lugar de la memoria principal?",
+              opts: [
+                "Porque tienen mayor capacidad de almacenamiento",
+                "Porque su acceso es extremadamente rápido",
+                "Porque no consumen energía eléctrica",
+                "Porque son compartidos entre todos los procesos",
+              ],
+              ans: 1,
+            },
+            {
+              pts: 200,
+              q: "¿Qué tipo de lenguaje se presenta en el siguiente fragmento de código objeto generado?",
+              code: "MOV AX, 5 \\n ADD AX, 3",
+              opts: [
+                "Código P",
+                "Lenguaje de máquina (binario)",
+                "Lenguaje ensamblador",
+                "Código de tres direcciones",
+              ],
+              ans: 2,
+            },
+            {
+              pts: 300,
+              q: "¿Qué es el lenguaje máquina en el contexto de la generación de código objeto?",
+              opts: [
+                "Un pseudocódigo portable entre plataformas",
+                "Instrucciones de bajo nivel tipo MOV y ADD",
+                "El código binario final ejecutable directamente por el procesador",
+                "Las reglas semánticas especificadas en el esquema de traducción",
+              ],
+              ans: 2,
+            },
+          ],
+        },
+      ]
+
+      // ──────────────────────────────────────────
+      // ESTADO
+      // ──────────────────────────────────────────
+      let score = 0,
+        answered = 0,
+        currentCard = null
+      const totalQs = CATS.reduce((sum, cat) => sum + cat.qs.length, 0)
+      const maxScore = CATS.reduce(
+        (sum, cat) => sum + cat.qs.reduce((s, q) => s + q.pts, 0),
+        0,
+      )
+
+      // ──────────────────────────────────────────
+      // INICIAR
+      // ──────────────────────────────────────────
+      function init() {
+        score = 0
+        answered = 0
+        currentCard = null
+        refresh()
+        document.getElementById("win-screen").style.display = "none"
+        const board = document.getElementById("board")
+        board.style.display = "grid"
+        board.innerHTML = ""
+
+        // headers
+        CATS.forEach(cat => {
+          const h = document.createElement("div")
+          h.className = "cat-header"
+          h.textContent = cat.name
+          board.appendChild(h)
+        })
+
+        // rows: 100, 200, 300
+        ;[0, 1, 2].forEach(qi => {
+          CATS.forEach((cat, ci) => {
+            const card = document.createElement("div")
+            card.className = "q-card"
+            card.id = `c${ci}${qi}`
+            card.innerHTML = `<span class="pts">$${cat.qs[qi].pts}</span>`
+            card.addEventListener("click", () => open(ci, qi, card))
+            board.appendChild(card)
+          })
+        })
+      }
+
+      // ──────────────────────────────────────────
+      // ABRIR PREGUNTA
+      // ──────────────────────────────────────────
+      function open(ci, qi, card) {
+        if (card.classList.contains("used")) return
+        currentCard = card
+        const q = CATS[ci].qs[qi]
+
+        document.getElementById("m-cat").textContent = CATS[ci].name
+        document.getElementById("m-pts").textContent = `$${q.pts}`
+
+        // pregunta + código opcional
+        const mqEl = document.getElementById("m-q")
+        mqEl.innerHTML = q.q + (q.code ? `<code>${q.code}</code>` : "")
+
+        document.getElementById("m-feedback").textContent = ""
+        document.getElementById("m-feedback").className = ""
+        document.getElementById("m-close").style.display = "none"
+
+        const optsEl = document.getElementById("m-opts")
+        optsEl.innerHTML = ""
+        q.opts.forEach((opt, i) => {
+          const btn = document.createElement("button")
+          btn.className = "opt-btn"
+          btn.textContent = `${String.fromCharCode(65 + i)}) ${opt}`
+          btn.addEventListener("click", () => answer(i, q, btn))
+          optsEl.appendChild(btn)
+        })
+
+        document.getElementById("modal-overlay").classList.add("active")
+      }
+
+      // ──────────────────────────────────────────
+      // RESPONDER
+      // ──────────────────────────────────────────
+      function answer(sel, q, btn) {
+        document.querySelectorAll(".opt-btn").forEach(b => (b.disabled = true))
+        const fb = document.getElementById("m-feedback")
+        const ok = sel === q.ans
+
+        document.querySelectorAll(".opt-btn")[q.ans].classList.add("correct")
+        if (!ok) btn.classList.add("wrong")
+
+        if (ok) {
+          score += q.pts
+          fb.textContent = `✅ ¡Correcto! +$${q.pts}`
+          fb.className = "ok"
+        } else {
+          fb.textContent = `❌ Incorrecto. Respuesta: ${String.fromCharCode(65 + q.ans)}) ${q.opts[q.ans]}`
+          fb.className = "err"
+        }
+
+        answered++
+        currentCard.classList.add("used")
+        refresh()
+        document.getElementById("m-close").style.display = "block"
+        if (answered === totalQs)
+          document.getElementById("m-close").textContent = "Ver resultado 🏆"
+      }
+
+      // ──────────────────────────────────────────
+      // CERRAR MODAL
+      // ──────────────────────────────────────────
+      function closeModal() {
+        document.getElementById("modal-overlay").classList.remove("active")
+        if (answered === totalQs) showWin()
+      }
+
+      // ──────────────────────────────────────────
+      // PANTALLA FINAL
+      // ──────────────────────────────────────────
+      function showWin() {
+        document.getElementById("board").style.display = "none"
+        document.getElementById("win-final").textContent = `$${score}`
+        const pct = score / maxScore
+        const msg =
+          pct === 1
+            ? "🏅 ¡Puntaje perfecto! Eres un experto en compiladores."
+            : pct >= 0.67
+              ? "🌟 ¡Muy bien! Dominaste la mayoría de los temas."
+              : pct >= 0.33
+                ? "📖 No está mal, repasa un poco más."
+                : "💡 Estudia el material del index.html y vuelve a intentarlo."
+        document.getElementById("win-msg").textContent = msg
+        document.getElementById("win-screen").style.display = "flex"
+      }
+
+      // ──────────────────────────────────────────
+      // ACTUALIZAR MARCADOR
+      // ──────────────────────────────────────────
+      function refresh() {
+        document.getElementById("sc-pts").textContent = score
+        document.getElementById("sc-prog").textContent =
+          `${answered}/${totalQs}`
+      }
+
+      init()
+    </script>
+  </body>
+</html>
