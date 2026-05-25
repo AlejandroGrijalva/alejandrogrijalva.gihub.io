@@ -155,6 +155,13 @@ x = t1 </pre
         >
         </iframe>
       </div>
+      <a
+        href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAHCLBhe5lM&#x2F;w6dVNUwRuGOTmIUiJXnF7g&#x2F;view?utm_content=DAHCLBhe5lM&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link"
+        target="_blank"
+        rel="noopener"
+        >Lenguajes y Automatas II</a
+      >
+      by Luis Bermudez, Luis Fimbres y Joel Ramirez
       <h3>1.6 Tabla de símbolos y direcciones</h3>
       <p>
         La tabla de símbolos almacena información sobre identificadores del
@@ -216,7 +223,7 @@ x = t1 </pre
 (+, a, b, t1)
 (*, t1, c, t2) </pre
       >
- 
+
       <h3>2.3 Esquema de generación</h3>
 
       <p>
@@ -381,10 +388,8 @@ x = *t2
 </pre
       >
     </div>
- 
 
     <!-- ================== 3 ================== -->
-
 
     <div class="divider"><span>3. OPTIMIZACIÓN</span></div>
 
@@ -392,27 +397,115 @@ x = *t2
       <h3>3.1 Tipos de optimización</h3>
 
       <ul>
-        <li><strong>Locales:</strong> dentro de bloques.</li>
-        <li><strong>Ciclos:</strong> optimización de bucles.</li>
-        <li><strong>Globales:</strong> todo el programa.</li>
-        <li><strong>De mirilla:</strong> pequeñas secuencias.</li>
+        <li>
+          <strong>Locales:</strong> se aplican dentro de un bloque básico de
+          código (sin saltos ni bifurcaciones). Buscan simplificar operaciones y
+          eliminar instrucciones innecesarias.
+        </li>
+        <li>
+          <strong>En ciclos:</strong> mejoran el rendimiento dentro de bucles
+          (loops), reduciendo cálculos repetitivos y optimizando la ejecución
+          iterativa.
+        </li>
       </ul>
 
-      <p><strong>Ejemplo:</strong></p>
-      <pre>
-```
+      <p><strong>Características:</strong></p>
+      <ul>
+        <li>
+          <strong>Locales:</strong> son rápidas de aplicar y no requieren
+          analizar todo el programa.
+        </li>
+        <li>
+          <strong>En ciclos:</strong> tienen alto impacto, ya que los errores o
+          ineficiencias se repiten muchas veces.
+        </li>
+      </ul>
 
-x = 2 * 3 </pre
+      <p><strong>Ejemplos:</strong></p>
+
+      <p><strong>1. Optimización local (evaluación constante):</strong></p>
+      <pre>
+x = 2 * 3
+  </pre
       >
 
-      Optimización:
-
+      <p>Optimización:</p>
       <pre>
-```
-
-x = 6 </pre
+x = 6
+  </pre
       >
 
+      <p>
+        <strong>Explicación:</strong> el compilador evalúa expresiones
+        constantes en tiempo de compilación para evitar cálculos innecesarios en
+        ejecución.
+      </p>
+
+      <p>
+        <strong
+          >Otro ejemplo local (eliminación de operaciones neutras):</strong
+        >
+      </p>
+      <pre>
+x = y + 0
+z = w * 1
+  </pre
+      >
+
+      <p>Optimización:</p>
+      <pre>
+x = y
+z = w
+  </pre
+      >
+
+      <p><strong>2. Optimización en ciclos (código invariante):</strong></p>
+      <pre>
+for (i = 0; i < n; i++) {
+  y = a * b;
+  x[i] = y + i;
+}
+  </pre
+      >
+
+      <p>Optimización:</p>
+      <pre>
+y = a * b;
+for (i = 0; i < n; i++) {
+  x[i] = y + i;
+}
+  </pre
+      >
+
+      <p>
+        <strong>Explicación:</strong> se mueve fuera del ciclo cualquier cálculo
+        que no cambie entre iteraciones, reduciendo el número de operaciones.
+      </p>
+
+      <p><strong>Otro ejemplo en ciclos (reducción de fuerza):</strong></p>
+      <pre>
+for (i = 0; i < n; i++) {
+  x = i * 2;
+}
+  </pre
+      >
+
+      <p>Optimización:</p>
+      <pre>
+x = 0;
+for (i = 0; i < n; i++) {
+  x = x + 2;
+}
+  </pre
+      >
+
+      <p>
+        <strong>Explicación:</strong> se reemplazan operaciones costosas
+        (multiplicación) por más simples (suma).
+      </p>
+    </div>
+
+    <!--  
       <h3>3.2.1 Costo de ejecución (memoria, registros, pilas)</h3>
 
       <p>
@@ -515,9 +608,9 @@ x = 10
 
       La primera asignación de x puede eliminarse si no se usa posteriormente.
     </div>
-
+-->
     <!-- ================== 4 ================== -->
- 
+    <!-- 
     <div class="divider"><span>4. GENERACIÓN DE CÓDIGO OBJETO</span></div>
 
     <div class="container-info">
@@ -600,7 +693,7 @@ ADD AX, 3 </pre
         <pre id="resultadoAsm"></pre>
       </div>
     </div>
-
+-->
     <script>
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
@@ -637,5 +730,11 @@ ADD AX, 3 </pre
         document.getElementById("resultadoAsm").textContent = asm
       }
     </script>
+
+    <!-- Botón Flotante para Geoparty -->
+    <a href="./geoparty.html" class="floating-geoparty-btn">
+      <span>🎮 Jugar CompilerParty</span>
+      <span style="font-size: 1.35rem;">🏆</span>
+    </a>
   </body>
 </html>
