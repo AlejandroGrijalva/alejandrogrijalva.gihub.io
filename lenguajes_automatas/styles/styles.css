@@ -76,3 +76,37 @@ code {
 ul li {
   margin-bottom: 8px;
 }
+
+/* Floating Geoparty Button */
+.floating-geoparty-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: linear-gradient(135deg, #6d46a8, #52337f);
+  color: #ffffff !important;
+  padding: 16px 28px;
+  font-size: 1.15rem;
+  font-weight: bold;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(109, 70, 168, 0.4);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 2px solid #9b7ecc;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.floating-geoparty-btn:hover {
+  background: linear-gradient(135deg, #7e57c2, #6200ea);
+  color: #ffffff !important;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 28px rgba(109, 70, 168, 0.6);
+  border-color: #f4c542;
+}
+
+.floating-geoparty-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
